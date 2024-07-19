@@ -6,6 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score
 from sklearn.preprocessing import MinMaxScaler
 from scipy.stats import pearsonr
+from sklearn.metrics import mean_squared_error
 
 data = pd.read_csv('data_cleaned.csv')
 
@@ -98,6 +99,9 @@ model.fit(X_train, y_train)
 y_pred = model.predict(X_test)
 r2 = r2_score(y_test, y_pred)
 print(f'r2: {r2}')
+
+MSE = mean_squared_error(y_test, y_pred)
+print(f'MSE: {MSE}')
 
 ss_res = sum([(y_i - model.predict(x_i.reshape(-1, 1))[0]) ** 2
               for x_i, y_i in zip(X_test, y_test)])
